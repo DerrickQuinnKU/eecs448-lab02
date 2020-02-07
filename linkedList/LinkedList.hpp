@@ -29,14 +29,7 @@ bool LinkedList<T>::isEmpty() const
 template <typename T>
 int LinkedList<T>::size() const
 {
-	int size = 0;
-	Node<T>* cur = m_front;
-	while(cur != nullptr)
-	{
-		++size;
-		cur = cur->getNext();
-	}
-	return(size);
+	return(m_size);
 }
 
 template <typename T>
@@ -119,10 +112,10 @@ bool LinkedList<T>::removeBack()
 
 		if(secondintoLast->getNext() != nullptr)
 		{
-			lastNode = secondintoLast->getNext();
+			lastNode = m_front->getNext();
 			while(lastNode->getNext() != nullptr)
 			{
-				secondintoLast = lastNode;
+				secondintoLast = secondintoLast->getNext();
 				lastNode = lastNode->getNext();
 			}
 			delete lastNode;
@@ -132,10 +125,9 @@ bool LinkedList<T>::removeBack()
 		else
 		{
 			delete secondintoLast;
-			secondintoLast = nullptr;
-			m_front = nullptr;
+			m_front->setNext(nullptr);
 		}
-
+		m_size--;
 		isRemoved = true;
 
 	}
